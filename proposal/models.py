@@ -9,12 +9,20 @@ from users_module.models import User
 class Proposal(models.Model):
     title = models.CharField(max_length=150, unique=True)
     proposal_slug = models.SlugField(max_length=200, primary_key=True)
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='proposals')
 
     description = models.TextField(blank=True)
+
     due_date = models.DateField(blank=True, null=True)
 
-    form_complete = models.BooleanField(default=False)
+    delivery_date = models.DateField(blank=True, null=True)
+
+    emails = models.URLField(blank=True)
+
+    amount = models.CharField(max_length=150,blank=True, null=True)
+
+    address = models.TextField(blank=True, null=True)
 
     status = models.CharField(max_length=15, choices=(
         ('Proposed', 'Proposed'),
@@ -24,8 +32,7 @@ class Proposal(models.Model):
 
     approved_by = models.ForeignKey(User, on_delete=models.PROTECT, related_name='approved_proposals', null=True,
                                     blank=True)
-
-    workspace_url = models.URLField(blank=True)
+    form_complete = models.BooleanField(default=False)
 
     @property
     def is_owner(self, user):
