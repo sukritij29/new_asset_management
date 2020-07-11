@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # Apps
-    'users_module'
+    'users_module',
+    'proposal'
 ]
 
 MIDDLEWARE = [
