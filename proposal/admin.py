@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from proposal.models import Proposal
+from proposal.models import Proposal, Documentation, Vendor
 
 
 class ProposalAdmin(admin.ModelAdmin):
@@ -11,3 +11,5 @@ class ProposalAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Proposal, ProposalAdmin)
+admin.site.register(Documentation)
+admin.site.register(Vendor)

@@ -18,7 +18,7 @@ class Proposal(models.Model):
 
     delivery_date = models.DateField(blank=True, null=True)
 
-    emails = models.URLField(blank=True)
+    email = models.URLField(blank=True)
 
     amount = models.CharField(max_length=150,blank=True, null=True)
 
@@ -44,3 +44,17 @@ class Proposal(models.Model):
     def save(self, *args, **kwargs):
         self.project_slug = slugify(self.title)
         super(Proposal, self).save(*args, **kwargs)
+
+
+class Documentation(models.Model):
+    document_id = models.AutoField(primary_key=True)
+    proposal = models.ForeignKey(Proposal, on_delete=models.CASCADE, related_name='documentation')
+    title = models.CharField(max_length=150)
+    description = models.TextField()
+    link = models.URLField()
+
+
+class Vendor(models.Model):
+    vendor_id = models.AutoField(primary_key=True)
+    proposal = models.ForeignKey(Proposal, on_delete=models.CASCADE, related_name='vendor')
+    email_address = models.CharField(max_length=150,blank=True)
