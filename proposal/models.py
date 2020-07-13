@@ -20,7 +20,7 @@ class Proposal(models.Model):
 
     email = models.URLField(blank=True)
 
-    amount = models.CharField(max_length=150,blank=True, null=True)
+    proposed_amount = models.CharField(max_length=150,blank=True, null=True)
 
     address = models.TextField(blank=True, null=True)
 
@@ -51,6 +51,7 @@ class Documentation(models.Model):
     proposal = models.ForeignKey(Proposal, on_delete=models.CASCADE, related_name='documentation')
     title = models.CharField(max_length=150)
     description = models.TextField()
+    amount = models.CharField(max_length=150,blank=True, null=True)
     link = models.URLField()
 
 
