@@ -52,6 +52,8 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'employee_id']
 
+    verified = models.BooleanField(default=False)
+
     objects = UserManager()
 
     def __str__(self):
