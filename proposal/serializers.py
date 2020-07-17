@@ -38,7 +38,7 @@ class ProposalCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proposal
         fields = (
-            'proposal_slug', 'title', 'description', 'due_date', 'delivery_date', 'email', 'address')
+            'proposal_slug', 'title', 'owner', 'description', 'due_date', 'delivery_date', 'email', 'address')
         read_only_fields = ('proposal_slug',)
 
 

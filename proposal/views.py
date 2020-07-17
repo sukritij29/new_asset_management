@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from asset.decorators import method_permission_classes
-from asset.permissions import IsOwner, IsAdmin, IsVerified
+from asset.permissions import IsOwner, IsAdmin
 from proposal.models import Proposal, Vendor, Documentation
 from proposal.serializers import ProposalListSerializer, ProposalMeSerializer, ProposalCreateSerializer, \
     ProposalDetailSerializer, ProposalUpdateSerializer, ApproveSerializer,VendorSerializer, VendorPatchSerializer,\
@@ -76,19 +76,19 @@ class ProposalViewSet(ModelViewSet):
     def get_serializer_context(self):
         return {'current_user': self.request.user}
 
-    @method_permission_classes([IsAuthenticated, IsVerified])
+    @method_permission_classes([IsAuthenticated ])
     def retrieve(self, request, *args, **kwargs):
         return super(ProposalViewSet, self).retrieve(request, *args, **kwargs)
 
-    @method_permission_classes([IsAuthenticated, IsOwner, IsVerified])
+    @method_permission_classes([IsAuthenticated, IsOwner ])
     def update(self, request, *args, **kwargs):
         return super(ProposalViewSet, self).update(request, *args, **kwargs)
 
-    @method_permission_classes([IsAuthenticated, IsOwner, IsVerified])
+    @method_permission_classes([IsAuthenticated, IsOwner ])
     def partial_update(self, request, *args, **kwargs):
         return super(ProposalViewSet, self).partial_update(request, *args, **kwargs)
 
-    @method_permission_classes([IsAuthenticated, IsVerified])
+    @method_permission_classes([IsAuthenticated ])
     def destroy(self, request, *args, **kwargs):
         return super(ProposalViewSet, self).destroy(request, *args, **kwargs)
 
@@ -98,7 +98,7 @@ class ProposalViewSet(ModelViewSet):
         serializer = self.get_serializer_class()
         return Response(data=serializer(queryset, many=True).data, status=200)
 
-    @action(methods=['post'], detail=True, permission_classes=[IsAuthenticated, IsAdmin, IsVerified])
+    @action(methods=['post'], detail=True, permission_classes=[IsAuthenticated, IsAdmin ])
     def approve(self, request, *args, **kwargs):
         proposal = self.get_object()
         if proposal.status not in ['Approved', 'Ongoing', 'Completed']:

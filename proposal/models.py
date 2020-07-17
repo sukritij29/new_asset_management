@@ -51,7 +51,7 @@ class Documentation(models.Model):
     proposal = models.ForeignKey(Proposal, on_delete=models.CASCADE, related_name='documentation')
     title = models.CharField(max_length=150)
     description = models.TextField()
-    amount = models.CharField(max_length=150,blank=True, null=True)
+    amount = models.CharField(max_length=150, blank=True, null=True)
     link = models.URLField()
 
 

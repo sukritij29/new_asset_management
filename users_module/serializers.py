@@ -36,3 +36,18 @@ class CustomRegisterSerializer(RegisterSerializer):
     def custom_signup(self, request, user):
         user.employee_id = self.get_cleaned_data().get("employee_id")
         user.save()
+
+
+class UserSerializer(serializers.ModelSerializer):
+    groups = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ['user_id', 'email', 'first_name', 'last_name', 'employee_id', 'groups']
+        read_only_fields = ['user_id', 'email', 'groups']
+
+    def get_groups(self, instance):
+        if instance.groups.all().values_list('name'):
+            return instance.groups.all().values_list('name')[0][0]
+        else:
+            return None
