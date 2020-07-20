@@ -52,7 +52,7 @@ class Documentation(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField()
     amount = models.CharField(max_length=150, blank=True, null=True)
-    link = models.URLField()
+    file_upload = models.FileField()
 
 
 class Vendor(models.Model):
